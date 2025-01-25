@@ -99,45 +99,11 @@ function findTextNodes(node) {
     return textNodes;
 }
 
-function setColorPickerValue(hexColor) {
-    const colorPicker = document.getElementById('colorPicker');
-    const defaultColor = '#ffeb3b';
-
-    // Ensure the hexColor is a valid hex color code
-    if (/^#[0-9A-F]{6}$/i.test(hexColor)) {
-        colorPicker.value = hexColor;
-    } else {
-        colorPicker.value = defaultColor;
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    loadHighlights();
-    validateColorPicker();
-
-    const eraserIcon = document.getElementById('eraserIcon');
-    const colorPicker = document.getElementById('colorPicker');
-    const defaultColor = '#ffeb3b';
-
-    eraserIcon.addEventListener('click', function() {
-        colorPicker.value = '#ffffff'; // Set to white or any color representing eraser
-        document.getElementById('selectedColorHex').textContent = '#FFFFFF';
-        activateEraserMode();
-    });
-
-    colorPicker.addEventListener('input', function() {
-        document.getElementById('selectedColorHex').textContent = colorPicker.value.toUpperCase();
-    });
-});
-
-window.addEventListener('load', function() {
-    loadHighlights();
-    validateColorPicker();
-});
+document.addEventListener('DOMContentLoaded', loadHighlights);
+window.addEventListener('load', loadHighlights);
 
 const observer = new MutationObserver(function(mutations) {
     loadHighlights();
-    validateColorPicker();
 });
 
 observer.observe(document.body, {
@@ -145,29 +111,13 @@ observer.observe(document.body, {
     subtree: true
 });
 
-function validateColorPicker() {
-    const colorPicker = document.getElementById('colorPicker');
-    const defaultColor = '#ffeb3b';
-
-    if (colorPicker && !/^#[0-9A-F]{6}$/i.test(colorPicker.value)) {
-        colorPicker.value = defaultColor;
-    }
-}
-
-function activateEraserMode() {
-    document.body.addEventListener('click', function(event) {
-        if (event.target.classList.contains('highlight')) {
-            event.target.remove();
-        }
-    }, { once: true });
-}
-
 window.debugAnnotations = {
     showStorage: function() {
         chrome.storage.local.get(null, function(data) {
             console.log('All stored highlights:', data);
         });
-    }
+    },
+    reloadHighlights: loadHighlights
 };
 
 function createNoteDialog() {
@@ -320,6 +270,13 @@ document.addEventListener('keydown', function(e) {
 chrome.storage.local.get('currentColor', function(data) {
     if (data.currentColor) {
         currentColor = data.currentColor;
+    }
+});
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === "setHighlightColor") {
+        currentColor = request.color;
+        chrome.storage.local.set({ currentColor: request.color });
     }
 });
 
