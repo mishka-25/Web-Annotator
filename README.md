@@ -21,7 +21,7 @@ Web Annotator is a Chrome extension that allows users to highlight text on any w
 
 ## Usage
 ### Highlighting Text
-1. Select any text on a webpage
+1. Select any text on a webpage using the color picker or the colors given in the preset
 2. Choose a highlight color from the extension popup
 3. The selected text will be highlighted in the chosen color
 
@@ -121,6 +121,7 @@ web-annotator/
 - Search through highlights
 - Collaboration features
 - Multiple highlight styles
+- Add an erasor icon
 
 ## Contributing
 1. Fork the repository
