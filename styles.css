@@ -1,0 +1,19 @@
+.web-annotator-highlight {
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .web-annotator-highlight[data-note]:hover::after {
+    content: attr(data-note);
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    background: #333;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    white-space: pre-wrap;
+    max-width: 200px;
+    z-index: 1000;
+  }

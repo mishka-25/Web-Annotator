@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Web Annotator</title>
+  <style>
+    body {
+      width: 300px;
+      padding: 15px;
+      font-family: Arial, sans-serif;
+    }
+
+    h3 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .color-picker-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+    
+    #colorPicker {
+      appearance: none;
+      background: none;
+      width: 50px;
+      height: 50px;
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    
+    #colorPicker::-webkit-color-swatch-wrapper {
+      padding: 0;
+      border: none;
+      border-radius: 50%;
+    }
+    
+    #colorPicker::-webkit-color-swatch {
+      border: 2px solid #ddd;
+      border-radius: 50%;
+    }
+
+    .color-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    #selectedColorHex {
+      font-family: monospace;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .preset-colors {
+      display: flex;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .color-option {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.2s;
+    }
+
+    .color-option:hover {
+      transform: scale(1.1);
+      border-color: #666;
+    }
+
+    .instructions {
+      font-size: 12px;
+      color: #666;
+      margin-top: 15px;
+      border-top: 1px solid #eee;
+      padding-top: 15px;
+    }
+
+    .instructions p {
+      margin: 5px 0;
+      line-height: 1.4;
+    }
+
+    .eraser-icon {
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+      fill: #000;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h3>Web Annotator</h3>
+  
+  <div class="color-picker-wrapper">
+    <input type="color" id="colorPicker" value="#ffeb3b">
+    <div class="color-info">
+      <span>Selected Color:</span>
+      <span id="selectedColorHex">#FFEB3B</span>
+      <svg class="eraser-icon" id="eraserIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M16.24 3.76a3 3 0 0 0-4.24 0L2.34 13.41a3 3 0 0 0 0 4.24l4.24 4.24a3 3 0 0 0 4.24 0l9.66-9.66a3 3 0 0 0 0-4.24l-4.24-4.24zm-1.41 1.41l4.24 4.24-9.66 9.66-4.24-4.24 9.66-9.66zM3.76 16.24l4.24 4.24-1.41 1.41a1 1 0 0 1-1.41 0l-2.83-2.83a1 1 0 0 1 0-1.41l1.41-1.41z"/>
+      </svg>
+    </div>
+  </div>
+
+<div class="preset-colors">
+    <div class="color-option" style="background: #ffeb3b;" data-color="#ffeb3b"></div>
+    <div class="color-option" style="background: #90ee90;" data-color="#90ee90"></div>
+    <div class="color-option" style="background: #add8e6;" data-color="#add8e6"></div>
+    <div class="color-option" style="background: #ffb6c1;" data-color="#ffb6c1"></div>
+</div>
+
+  <div class="instructions">
+    <p>1. Choose a color from the picker or presets</p>
+    <p>2. Select text on the page to highlight</p>
+    <p>3. Right-click highlighted text to add/edit notes</p>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
