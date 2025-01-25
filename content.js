@@ -279,10 +279,3 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         chrome.storage.local.set({ currentColor: request.color });
     }
 });
-
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.action === "setHighlightColor") {
-        currentColor = request.color;
-        chrome.storage.local.set({ currentColor: request.color });
-    }
-});
